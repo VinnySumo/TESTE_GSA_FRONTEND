@@ -6,14 +6,12 @@ export default function Cadastro() {
     const { sala: salaParam, id } = useParams(); // Sala e ID que vieram da URL (Origem)
     const navigate = useNavigate();
     
-    // Importamos a nova função excluirAluno
     const { cadastrarAluno, editarAluno, buscarUmAluno, excluirAluno, loading, erro } = useAlunoForm();
 
     const [nome, setNome] = useState('');
     const [dataNascimento, setDataNascimento] = useState('');
     const [endereco, setEndereco] = useState('');
     
-    // salaSelecionada é a que o usuário escolheu no <select>
     const [salaSelecionada, setSalaSelecionada] = useState('a');
     
     const [editando, setEditando] = useState(false);
@@ -41,7 +39,6 @@ export default function Cadastro() {
         }
     }
 
-    // Validação de Idade (Mantivemos a sua lógica segura)
     function validarIdade(dataString) {
         if (!dataString) return false;
         const hoje = new Date();
@@ -71,18 +68,15 @@ export default function Cadastro() {
 
         const dados = { nome, data_nascimento: dataNascimento, endereco, sala: salaSelecionada };
         let sucesso = false;
-
-        // LÓGICA DE MUDANÇA DE SALA
+    
         if (editando) {
-            // Se a sala do select for diferente da sala da URL (salaParam)
+            
             if (salaSelecionada !== salaParam) {
                 if (window.confirm(`Você alterou a sala de ${salaParam.toUpperCase()} para ${salaSelecionada.toUpperCase()}. Isso vai mover o aluno. Deseja continuar?`)) {
                     
-                    // 1. Cria na sala nova
                     const criouNovo = await cadastrarAluno(dados);
                     
                     if (criouNovo) {
-                        // 2. Se criou com sucesso, apaga da sala antiga
                         await excluirAluno(id, salaParam);
                         alert('Aluno movido de sala com sucesso!');
                         navigate('/');
@@ -92,14 +86,12 @@ export default function Cadastro() {
                         return;
                     }
                 } else {
-                    return; // Cancelou a mudança
+                    return; 
                 }
             } else {
-                // Edição normal (mesma sala)
                 sucesso = await editarAluno(id, salaParam, dados);
             }
         } else {
-            // Cadastro novo normal
             sucesso = await cadastrarAluno(dados);
         }
 
