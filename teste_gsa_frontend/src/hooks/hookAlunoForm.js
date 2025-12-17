@@ -50,11 +50,22 @@ export function useAlunoForm() {
         }
     };
 
+    const excluirAluno = async (id, sala) => {
+        try {
+            await api.delete(`/sala/${sala}/${id}`);
+            return true;
+        } catch (error) {
+            console.error('Erro ao excluir antigo:', error);
+            return false;
+        }
+    };
+
     return {
         loading,
         erro,
         buscarUmAluno,
         cadastrarAluno,
-        editarAluno
+        editarAluno,
+        excluirAluno
     };
 }

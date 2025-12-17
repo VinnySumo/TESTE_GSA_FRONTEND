@@ -38,9 +38,20 @@ export default function Home() {
     };
 
     const irParaEdicao = (id, salaOrigem) => {
-        let salaLetra = 'a';
-        if (salaOrigem?.toLowerCase().includes('b')) salaLetra = 'b';
-        if (salaOrigem?.toLowerCase().includes('c')) salaLetra = 'c';
+        
+        let salaLetra = 'a'; // Padrão
+
+        if (salaOrigem) {
+            const origemLower = salaOrigem.toLowerCase();
+            if (origemLower.includes('b')) salaLetra = 'b';
+            if (origemLower.includes('c')) salaLetra = 'c';
+        } 
+    
+        else if (filtroSala && filtroSala !== 'todas') {
+            salaLetra = filtroSala;
+        }
+
+        console.log(`Indo para edição: Sala ${salaLetra}, ID ${id}`); // Debug
         navigate(`/cadastro/${salaLetra}/${id}`);
     };
 
