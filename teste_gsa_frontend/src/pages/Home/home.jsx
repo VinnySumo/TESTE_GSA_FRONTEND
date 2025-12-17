@@ -26,12 +26,24 @@ export default function Home() {
         }
     };
 
-    const handleDeletar = async (id, salaOrigem) => {
-        if (window.confirm('Tem certeza que deseja remover este aluno?')) {
-            const sucesso = await removerAluno(id, salaOrigem);
+       const handleDeletar = async (id, salaOrigem) => {
+      
+        let salaLetra = 'a'; // Padrão
+        
+        if (salaOrigem) {
+            const origemLower = salaOrigem.toLowerCase();
+            if (origemLower.includes('b')) salaLetra = 'b';
+            if (origemLower.includes('c')) salaLetra = 'c';
+        } else if (filtroSala && filtroSala !== 'todas') {
+            salaLetra = filtroSala;
+        }
+
+        if (window.confirm(`Tem certeza que deseja remover este aluno da Sala ${salaLetra.toUpperCase()}?`)) {
+            
+            const sucesso = await removerAluno(id, salaLetra);
+            
             if (sucesso) {
                 alert('Aluno removido com sucesso!');
-                // Só recarrega se tiver numa sala. Se for busca, o hook já tratou ou podemos refazer a busca.
                 if (filtroSala) listarAlunos(filtroSala);
             }
         }
