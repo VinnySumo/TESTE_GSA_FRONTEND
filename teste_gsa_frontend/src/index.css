@@ -1,68 +1,62 @@
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+    
+    --btn-add-bg: #dae8fc;
+    --btn-add-border: #6c8ebf;
+    --btn-back-bg: #f8cecc;
+    --btn-back-border: #b85450;
+    --btn-save-bg: #d5e8d4;
+    --btn-save-border: #82b366;
+    --logo-bg: #fcf6e3;
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
     background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+    font-family: sans-serif;
+}
+
+/* Caixa do Logotipo */
+.logo-box {
+    width: 100px;
+    height: 100px;
+    background-color: var(--logo-bg);
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+/* Botões Personalizados */
+.btn-custom-add { background-color: var(--btn-add-bg); border: 1px solid var(--btn-add-border); color: black; }
+.btn-custom-add:hover { background-color: #cce0fc; }
+
+.btn-custom-back { background-color: var(--btn-back-bg); border: 1px solid var(--btn-back-border); color: black; }
+.btn-custom-back:hover { background-color: #fadbd8; }
+
+.btn-custom-save { background-color: var(--btn-save-bg); border: 1px solid var(--btn-save-border); color: black; }
+.btn-custom-save:hover { background-color: #dff0d8; }
+
+/* Ajuste da Tabela */
+.table thead th {
+    background-color: #f5f5f5;
+    border-bottom: 2px solid #dee2e6;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+/* Input labels */
+.label-custom {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-bottom: none;
+    padding: 5px 10px;
+    width: 100%;
+    display: block;
+    font-weight: bold;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
+.input-custom {
+    border-radius: 0; 
 }
