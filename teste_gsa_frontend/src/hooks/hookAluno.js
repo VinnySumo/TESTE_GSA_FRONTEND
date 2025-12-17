@@ -7,16 +7,28 @@ export function useAlunos() {
     const [erro, setErro] = useState(null);
 
     // Função para listar (usamos useCallback para não recriar a função a toda hora)
-    const listarAlunos = useCallback(async () => {
+    const listarAlunos = useCallback(async (sala = 'todas') => {
         setLoading(true);
         setErro(null);
         try {
-            // Usando aquela rota que traz todos
-            const response = await api.get('/sala/nascimento/todas');
+            let url = '';
+
+            // CORREÇÃO 2: Decide qual URL usar baseado no parâmetro
+            if (sala === 'todas') {
+                url = '/sala/nascimento/todas';
+            } else {
+                // Se for 'a', 'b' ou 'c', usa a rota específica
+                url = `/sala/${sala}`;
+            }
+            
+            console.log("Buscando na URL:", url); // Para você conferir no F12
+
+            const response = await api.get(url);
             setAlunos(response.data.dados);
         } catch (error) {
             setErro('Erro ao carregar alunos.');
             console.error(error);
+            setAlunos([]); // Limpa a lista se der erro
         } finally {
             setLoading(false);
         }
