@@ -44,7 +44,7 @@ export function useAlunos() {
         try {
             const response = await api.get(`/sala/busca/todas/${termo}`);
             setAlunos(response.data.dados);
-        } catch (error) {
+        } catch {
             setErro('Erro na busca.');
             setAlunos([]); // Limpa lista se não achar
         } finally {
@@ -66,7 +66,7 @@ export function useAlunos() {
             // Após deletar, recarrega a lista automaticamente
             await listarAlunos();
             return true; // Retorna true se deu certo
-        } catch (error) {
+        } catch {
             setErro('Erro ao deletar aluno.');
             return false;
         }

@@ -12,7 +12,7 @@ export function useAlunoForm() {
         try {
             const response = await api.get(`/sala/${sala}/${id}`);
             return response.data.dados;
-        } catch (error) {
+        } catch {
             setErro('Erro ao buscar dados do aluno.');
             return null;
         } finally {
@@ -42,7 +42,7 @@ export function useAlunoForm() {
         try {
             await api.put(`/sala/${sala}/${id}`, dados);
             return true;
-        } catch (error) {
+        } catch {
             setErro('Erro ao salvar alterações.');
             return false;
         } finally {
