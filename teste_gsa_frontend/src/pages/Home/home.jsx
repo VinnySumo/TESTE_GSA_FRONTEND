@@ -67,6 +67,19 @@ export default function Home() {
         navigate(`/cadastro/${salaLetra}/${id}`);
     };
 
+    const verDetalhes = (id, salaOrigem) => {
+    // Mesma lógica inteligente para descobrir a sala
+    let salaLetra = 'a';
+    if (salaOrigem) {
+        const origemLower = salaOrigem.toLowerCase();
+        if (origemLower.includes('b')) salaLetra = 'b';
+        if (origemLower.includes('c')) salaLetra = 'c';
+    } else if (filtroSala && filtroSala !== 'todas') {
+        salaLetra = filtroSala;
+    }
+    navigate(`/detalhes/${salaLetra}/${id}`);
+};
+
     const getBtnClass = (sala) => {
         const base = "btn fw-bold rounded-pill px-4 me-2 ";
         if (filtroSala === sala) {
@@ -74,6 +87,7 @@ export default function Home() {
         }
         return base + "btn-outline-secondary"; // Cinza (Inativo)
     };
+
 
     return (
         <div className="container border p-4 shadow-sm mt-4 bg-white" style={{ minHeight: '80vh' }}>
@@ -151,6 +165,16 @@ export default function Home() {
                             {alunos.map((aluno) => (
                                 <tr key={`${aluno.id}-${aluno.origem}`}>
                                     <td className="text-center">
+
+                                        <button 
+                                             onClick={() => verDetalhes(aluno.id, aluno.origem)}
+                                             className="btn btn-sm btn-link text-decoration-none fw-bold text-primary"
+                                             title="Ver Detalhes"
+                                         >
+                                             VER
+                                          </button>
+                                        <span className="mx-1 text-muted">|</span>
+
                                         <button 
                                             onClick={() => irParaEdicao(aluno.id, aluno.origem)}
                                             className="btn btn-sm btn-link text-decoration-none fw-bold text-dark"
@@ -158,12 +182,14 @@ export default function Home() {
                                             EDITAR
                                         </button>
                                         <span className="mx-1 text-muted">|</span>
+
                                         <button 
                                             onClick={() => handleDeletar(aluno.id, aluno.origem)}
                                             className="btn btn-sm btn-link text-decoration-none fw-bold text-danger"
                                         >
                                             REMOVER
                                         </button>
+
                                     </td>
                                     <td className="fw-bold text-uppercase text-secondary">{aluno.nome}</td>
                                     <td className="text-center fw-bold text-primary">
