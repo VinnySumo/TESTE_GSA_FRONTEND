@@ -8,8 +8,6 @@ export default function Home() {
     
     const [termoBusca, setTermoBusca] = useState('');
     const [filtroSala, setFiltroSala] = useState(null); 
-    
-    // NOVO ESTADO: Só fica true quando você clica em BUSCAR
     const [buscaRealizada, setBuscaRealizada] = useState(false);
 
     const navigate = useNavigate();
@@ -82,10 +80,10 @@ export default function Home() {
 
     
     const handleSelecionarSala = (sala) => {
-        setFiltroSala(sala);       // Define a sala
-        setTermoBusca('');         // Limpa o texto da busca na hora
-        setBuscaRealizada(false);  // Reseta o aviso de "não encontrado"
-        // O useEffect vai perceber a mudança do filtroSala e carregar os alunos
+        setFiltroSala(sala);      
+        setTermoBusca('');         
+        setBuscaRealizada(false); 
+        
     };
 
     const getBtnClass = (sala) => {
@@ -109,7 +107,7 @@ export default function Home() {
             <div className="mb-2">
                 <span className="text-muted small fw-bold d-block mb-2">SELECIONE UMA SALA PARA VISUALIZAR:</span>
                 <div className="d-flex justify-content-start pb-2 border-bottom">
-                    {/* Note que agora chamamos handleSelecionarSala */}
+                  
                     <button onClick={() => handleSelecionarSala('a')} className={getBtnClass('a')}>
                         SALA A
                     </button>
