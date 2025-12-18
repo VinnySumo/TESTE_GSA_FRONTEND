@@ -1,12 +1,12 @@
 
 :root {
     
-    --btn-add-bg: #dae8fc;
-    --btn-add-border: #6c8ebf;
-    --btn-back-bg: #f8cecc;
-    --btn-back-border: #b85450;
-    --btn-save-bg: #d5e8d4;
-    --btn-save-border: #82b366;
+    --button-add-bg: #dae8fc;
+    --button-add-border: #6c8ebf;
+    --button-voltar-bg: #f8cecc;
+    --button-voltar-border: #b85450;
+    --button-salvar-bg: #d5e8d4;
+    --button-salvar-border: #82b366;
     --logo-bg: #fcf6e3;
 }
 
@@ -28,14 +28,14 @@ body {
 }
 
 /* Botões Personalizados */
-.btn-custom-add { background-color: var(--btn-add-bg); border: 1px solid var(--btn-add-border); color: black; }
-.btn-custom-add:hover { background-color: #cce0fc; }
+.button-add { background-color: var(--button-add-bg); border: 1px solid var(--button-add-border); color: black; }
+.button-add:hover { background-color: #cce0fc; }
 
-.btn-custom-back { background-color: var(--btn-back-bg); border: 1px solid var(--btn-back-border); color: black; }
-.btn-custom-back:hover { background-color: #fadbd8; }
+.button-voltar { background-color: var(--button-voltar-bg); border: 1px solid var(--button-voltar-border); color: black; }
+.button-voltar:hover { background-color: #fadbd8; }
 
-.btn-custom-save { background-color: var(--btn-save-bg); border: 1px solid var(--btn-save-border); color: black; }
-.btn-custom-save:hover { background-color: #dff0d8; }
+.button-salvar { background-color: var(--button-salvar-bg); border: 1px solid var(--button-salvar-border); color: black; }
+.button-salvar:hover { background-color: #dff0d8; }
 
 /* Ajuste da Tabela */
 .table thead th {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAlunos } from '../../hooks/hookAluno'; // Importa nosso Hook
+import { useAlunos } from '../../hooks/hookAluno';
 
 export default function Home() {
     
@@ -15,20 +15,17 @@ export default function Home() {
         if (filtroSala) {
             listarAlunos(filtroSala);
         }
-        //Se nao tiver nada, continua do mesmo jeito
     }, [listarAlunos, filtroSala]);
 
     const handleBusca = () => {
-        // Se tiver busca, ele ignora o filtro criado
         if (termoBusca) {
             setFiltroSala(null);
             buscarAlunos(termoBusca);
         }
     };
 
-       const handleDeletar = async (id, salaOrigem) => {
-      
-        let salaLetra = 'a'; // Padrão
+    const handleDeletar = async (id, salaOrigem) => {
+        let salaLetra = 'a'; 
         
         if (salaOrigem) {
             const origemLower = salaOrigem.toLowerCase();
@@ -39,9 +36,7 @@ export default function Home() {
         }
 
         if (window.confirm(`Tem certeza que deseja remover este aluno da Sala ${salaLetra.toUpperCase()}?`)) {
-            
             const sucesso = await removerAluno(id, salaLetra);
-            
             if (sucesso) {
                 alert('Aluno removido com sucesso!');
                 if (filtroSala) listarAlunos(filtroSala);
@@ -50,57 +45,57 @@ export default function Home() {
     };
 
     const irParaEdicao = (id, salaOrigem) => {
-        
-        let salaLetra = 'a'; // Padrão
+        let salaLetra = 'a'; 
 
         if (salaOrigem) {
             const origemLower = salaOrigem.toLowerCase();
             if (origemLower.includes('b')) salaLetra = 'b';
             if (origemLower.includes('c')) salaLetra = 'c';
-        } 
-    
-        else if (filtroSala && filtroSala !== 'todas') {
+        } else if (filtroSala && filtroSala !== 'todas') {
             salaLetra = filtroSala;
         }
 
-        console.log(`Indo para edição: Sala ${salaLetra}, ID ${id}`); // Debug
         navigate(`/cadastro/${salaLetra}/${id}`);
     };
 
     const verDetalhes = (id, salaOrigem) => {
-    // Mesma lógica inteligente para descobrir a sala
-    let salaLetra = 'a';
-    if (salaOrigem) {
-        const origemLower = salaOrigem.toLowerCase();
-        if (origemLower.includes('b')) salaLetra = 'b';
-        if (origemLower.includes('c')) salaLetra = 'c';
-    } else if (filtroSala && filtroSala !== 'todas') {
-        salaLetra = filtroSala;
-    }
-    navigate(`/detalhes/${salaLetra}/${id}`);
-};
+        let salaLetra = 'a';
+        if (salaOrigem) {
+            const origemLower = salaOrigem.toLowerCase();
+            if (origemLower.includes('b')) salaLetra = 'b';
+            if (origemLower.includes('c')) salaLetra = 'c';
+        } else if (filtroSala && filtroSala !== 'todas') {
+            salaLetra = filtroSala;
+        }
+        navigate(`/detalhes/${salaLetra}/${id}`);
+    };
 
+    // Mantive os botões de filtro com Bootstrap padrão por enquanto,
+    // pois o CSS novo focou nos botões de ação (add, voltar, salvar).
     const getBtnClass = (sala) => {
         const base = "btn fw-bold rounded-pill px-4 me-2 ";
         if (filtroSala === sala) {
-            return base + "btn-primary"; // Azul (Ativo)
+            return base + "btn-primary"; 
         }
-        return base + "btn-outline-secondary"; // Cinza (Inativo)
+        return base + "btn-outline-secondary"; 
     };
 
 
     return (
-        <div className="container border p-4 shadow-sm mt-4 bg-white" style={{ minHeight: '80vh' }}>
+        <div className="container p-4 mt-4 bg-white" style={{ minHeight: '80vh' }}>
             
             {/* Cabeçalho */}
             <div className="d-flex justify-content-between mb-4 align-items-center">
-                <div className="logo-box shadow-sm rounded">VS</div>
-                <Link to="/cadastro" className="btn btn-custom-add rounded-pill px-4 py-2 fw-bold shadow-sm">
+                {/* Aplica o estilo exato do CSS: quadrado, borda preta, fundo amarelo claro */}
+                <div className="logo-box">VS</div>
+                
+                {/* Botão com a classe nova .button-add */}
+                <Link to="/cadastro" className="btn button-add px-4 py-2 fw-bold">
                     ADICIONAR ALUNO
                 </Link>
             </div>
 
-            {/* --- FILTRO DE SALAS (Sem botão TODOS) --- */}
+            {/* --- FILTRO DE SALAS --- */}
             <div className="mb-2">
                 <span className="text-muted small fw-bold d-block mb-2">SELECIONE UMA SALA PARA VISUALIZAR:</span>
                 <div className="d-flex justify-content-start pb-2 border-bottom">
@@ -119,18 +114,20 @@ export default function Home() {
             {/* Busca */}
             <div className="row mb-4 mt-4">
                 <div className="col-md-9">
+                    {/* Adicionado .input-custom para remover border-radius conforme CSS */}
                     <input 
                         type="text" 
-                        className="form-control form-control-lg rounded-0 border-secondary" 
+                        className="form-control form-control-lg input-custom" 
                         placeholder="OU PESQUISE POR NOME..."
                         value={termoBusca}
                         onChange={(e) => setTermoBusca(e.target.value)}
                     />
                 </div>
                 <div className="col-md-3">
+                    {/* Botão de buscar usando o estilo .button-add (azul claro) */}
                     <button 
                         onClick={handleBusca} 
-                        className="btn btn-custom-add rounded-pill w-100 fw-bold shadow-sm py-2"
+                        className="btn button-add w-100 fw-bold py-2"
                         disabled={loading}
                     >
                         {loading ? 'BUSCANDO...' : 'BUSCAR'}
@@ -141,38 +138,36 @@ export default function Home() {
             {/* Tabela Condicional */}
             <div className="table-responsive">
                 
-                {/* MUDANÇA 3: Mostra aviso se não tiver sala nem busca */}
                 {!filtroSala && alunos.length === 0 && !loading && (
-                    <div className="text-center py-5 bg-light rounded border border-dashed text-secondary">
+                    <div className="text-center py-5 bg-light border border-dashed text-secondary">
                         <h4>👋 Bem-vindo!</h4>
                         <p>Clique em uma das salas acima ou faça uma pesquisa para ver os alunos.</p>
                     </div>
                 )}
 
-                {/* Só mostra a tabela se tiver alunos listados */}
                 {alunos.length > 0 && (
                     <table className="table table-bordered align-middle table-hover">
                         <thead>
+                            {/* Removi bg-light para que o CSS (.table thead th) controle a cor (#f5f5f5) */}
                             <tr>
-                                <th className="text-center bg-light" style={{ width: '180px' }}>AÇÕES</th>
-                                <th className="bg-light">NOME</th>
-                                <th className="text-center bg-light" style={{ width: '120px' }}>SALA</th>
-                                <th className="text-center bg-light">DATA NASCIMENTO</th>
-                                <th className="text-center bg-light">DATA INCLUSÃO</th>
+                                <th className="text-center" style={{ width: '180px' }}>AÇÕES</th>
+                                <th>NOME</th>
+                                <th className="text-center" style={{ width: '120px' }}>SALA</th>
+                                <th className="text-center">DATA NASCIMENTO</th>
+                                <th className="text-center">DATA INCLUSÃO</th>
                             </tr>
                         </thead>
                         <tbody>
                             {alunos.map((aluno) => (
                                 <tr key={`${aluno.id}-${aluno.origem}`}>
                                     <td className="text-center">
-
                                         <button 
-                                             onClick={() => verDetalhes(aluno.id, aluno.origem)}
-                                             className="btn btn-sm btn-link text-decoration-none fw-bold text-primary"
-                                             title="Ver Detalhes"
-                                         >
-                                             VER
-                                          </button>
+                                            onClick={() => verDetalhes(aluno.id, aluno.origem)}
+                                            className="btn btn-sm btn-link text-decoration-none fw-bold text-primary"
+                                            title="Ver Detalhes"
+                                        >
+                                            VER
+                                        </button>
                                         <span className="mx-1 text-muted">|</span>
 
                                         <button 
@@ -189,7 +184,6 @@ export default function Home() {
                                         >
                                             REMOVER
                                         </button>
-
                                     </td>
                                     <td className="fw-bold text-uppercase text-secondary">{aluno.nome}</td>
                                     <td className="text-center fw-bold text-primary">
@@ -203,7 +197,6 @@ export default function Home() {
                     </table>
                 )}
                 
-                {/* Mensagens de estado */}
                 {loading && (
                     <div className="text-center text-primary mt-5">
                         <div className="spinner-border spinner-border-sm me-2" role="status"></div>
@@ -211,7 +204,6 @@ export default function Home() {
                     </div>
                 )}
                 
-                {/* Se buscou/clicou e veio vazio */}
                 {!loading && filtroSala && alunos.length === 0 && (
                      <div className="text-center text-muted mt-5">Nenhum aluno encontrado nesta sala.</div>
                 )}
