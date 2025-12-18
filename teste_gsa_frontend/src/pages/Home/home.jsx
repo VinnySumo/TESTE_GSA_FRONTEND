@@ -16,8 +16,6 @@ export default function Home() {
 
     useEffect(() => {
         if (filtroSala) {
-            setTermoBusca(''); 
-            setBuscaRealizada(false); // Reseta se mudar de sala
             listarAlunos(filtroSala);
         }
     }, [listarAlunos, filtroSala]);
@@ -26,15 +24,15 @@ export default function Home() {
         if (termoBusca) {
             setFiltroSala(null);
             buscarAlunos(termoBusca);
-            setBuscaRealizada(true); // AGORA SIM permitimos mostrar a mensagem
+            setBuscaRealizada(true); 
         }
     };
 
-    // Função para lidar com a digitação
+    
     const handleDigitacao = (e) => {
         setTermoBusca(e.target.value);
         if (buscaRealizada) {
-            setBuscaRealizada(false); // Esconde a mensagem enquanto você digita novamente
+            setBuscaRealizada(false); 
         }
     }
 
@@ -82,6 +80,14 @@ export default function Home() {
         navigate(`/detalhes/${salaLetra}/${id}`);
     };
 
+    
+    const handleSelecionarSala = (sala) => {
+        setFiltroSala(sala);       // Define a sala
+        setTermoBusca('');         // Limpa o texto da busca na hora
+        setBuscaRealizada(false);  // Reseta o aviso de "não encontrado"
+        // O useEffect vai perceber a mudança do filtroSala e carregar os alunos
+    };
+
     const getBtnClass = (sala) => {
         const base = "btn fw-bold rounded-pill px-4 me-2 ";
         if (filtroSala === sala) {
@@ -103,13 +109,14 @@ export default function Home() {
             <div className="mb-2">
                 <span className="text-muted small fw-bold d-block mb-2">SELECIONE UMA SALA PARA VISUALIZAR:</span>
                 <div className="d-flex justify-content-start pb-2 border-bottom">
-                    <button onClick={() => setFiltroSala('a')} className={getBtnClass('a')}>
+                    {/* Note que agora chamamos handleSelecionarSala */}
+                    <button onClick={() => handleSelecionarSala('a')} className={getBtnClass('a')}>
                         SALA A
                     </button>
-                    <button onClick={() => setFiltroSala('b')} className={getBtnClass('b')}>
+                    <button onClick={() => handleSelecionarSala('b')} className={getBtnClass('b')}>
                         SALA B
                     </button>
-                    <button onClick={() => setFiltroSala('c')} className={getBtnClass('c')}>
+                    <button onClick={() => handleSelecionarSala('c')} className={getBtnClass('c')}>
                         SALA C
                     </button>
                 </div>
@@ -122,7 +129,7 @@ export default function Home() {
                         className="form-control form-control-lg input-custom" 
                         placeholder="OU PESQUISE POR NOME..."
                         value={termoBusca}
-                        onChange={handleDigitacao} // Usando a nova função
+                        onChange={handleDigitacao}
                         onKeyDown={(e) => e.key === 'Enter' && handleBusca()} 
                     />
                 </div>
@@ -139,7 +146,7 @@ export default function Home() {
 
             <div className="table-responsive">
                 
-                {/* 1. MENSAGEM DE BEM-VINDO */}
+               
                 {!filtroSala && !termoBusca && alunos.length === 0 && !loading && (
                     <div className="text-center py-5 bg-light border border-dashed text-secondary">
                         <h4>👋 Bem-vindo!</h4>
@@ -147,7 +154,7 @@ export default function Home() {
                     </div>
                 )}
 
-                {/* 2. TABELA */}
+               
                 {alunos.length > 0 && (
                     <table className="table table-bordered align-middle table-hover">
                         <thead>
@@ -209,8 +216,6 @@ export default function Home() {
                      </div>
                 )}
 
-                {/* 4. MENSAGEM DE BUSCA SEM RESULTADO */}
-                {/* Agora só aparece se 'buscaRealizada' for true */}
                 {!loading && buscaRealizada && alunos.length === 0 && (
                     <div className="text-center text-secondary mt-5">
                         Nenhum aluno encontrado com o nome "{termoBusca}".
