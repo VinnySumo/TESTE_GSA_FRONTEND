@@ -39,8 +39,16 @@ Sistema web desenvolvido em **React** para o gerenciamento de alunos, permitindo
 5. Instale as dependências:
    npm install
 6. Para rodar o projeto:
-     npm run dev  
+    npm run dev #Caso nao rode o comando, digite cmd e tente novamente.
 7. O projeto rodará na porta padrão (ex: http://localhost:5173).
+
+## 📸 Visualização
+
+![Tela Inicial](./assets/Home.png)
+![Tela de Cadastro](./assets/Cadastro_Editar.png)
+![Tela Salas](./assets/Salas.png)
+![Tela de Informações](./assets/Informacoes.png)
+
 
 Desenvolvido por [Vynicios Raphael] #VinnySumo
       
