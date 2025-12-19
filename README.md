@@ -44,10 +44,10 @@ Sistema web desenvolvido em **React** para o gerenciamento de alunos, permitindo
 
 ## 📸 Visualização
 
-![Tela Inicial](./assets/Home.png)
-![Tela de Cadastro](./assets/Cadastro_Editar.png)
-![Tela Salas](./assets/Salas.png)
-![Tela de Informações](./assets/Informacoes.png)
+![Tela Inicial](./teste_gsa_frontend/src/assets/Home.png)
+![Tela de Cadastro](./teste_gsa_frontend/src/assets/Cadastro_Editar.png)
+![Tela Salas](./teste_gsa_frontend/src/assets/Salas.png)
+![Tela de Informações](./teste_gsa_frontend/src/assets/Informacoes.png)
 
 
 Desenvolvido por [Vynicios Raphael] #VinnySumo
