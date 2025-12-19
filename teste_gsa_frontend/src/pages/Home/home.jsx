@@ -12,10 +12,7 @@ export default function Home() {
 
     const navigate = useNavigate();
 
-    // --- NOVA LÓGICA DE ORDENAÇÃO (A-Z) ---
-    // Criamos uma cópia [...alunos] para não mudar o estado original e ordenamos.
     const alunosOrdenados = [...alunos].sort((a, b) => {
-        // localeCompare é perfeito para textos com acentos
         return a.nome.localeCompare(b.nome);
     });
 
