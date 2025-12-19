@@ -6,7 +6,7 @@ Sistema web desenvolvido em **React** para o gerenciamento de alunos, permitindo
 
 ## 🚀 Tecnologias Utilizadas
 
-- **ReactJS** (Vite/CRA)
+- **ViteJS** (Vite/CRA)
 - **React** (Navegação)
 - **CSS Customizado** (Design responsivo e limpo)
 - **Hooks Personalizados** (Consumo de API)
