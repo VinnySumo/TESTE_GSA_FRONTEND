@@ -12,6 +12,13 @@ export default function Home() {
 
     const navigate = useNavigate();
 
+    // --- NOVA LÓGICA DE ORDENAÇÃO (A-Z) ---
+    // Criamos uma cópia [...alunos] para não mudar o estado original e ordenamos.
+    const alunosOrdenados = [...alunos].sort((a, b) => {
+        // localeCompare é perfeito para textos com acentos
+        return a.nome.localeCompare(b.nome);
+    });
+
     useEffect(() => {
         if (filtroSala) {
             listarAlunos(filtroSala);
@@ -25,7 +32,6 @@ export default function Home() {
             setBuscaRealizada(true); 
         }
     };
-
     
     const handleDigitacao = (e) => {
         setTermoBusca(e.target.value);
@@ -77,13 +83,11 @@ export default function Home() {
         }
         navigate(`/detalhes/${salaLetra}/${id}`);
     };
-
     
     const handleSelecionarSala = (sala) => {
         setFiltroSala(sala);      
         setTermoBusca('');         
         setBuscaRealizada(false); 
-        
     };
 
     const getBtnClass = (sala) => {
@@ -107,7 +111,6 @@ export default function Home() {
             <div className="mb-2">
                 <span className="text-muted small fw-bold d-block mb-2">SELECIONE UMA SALA PARA VISUALIZAR:</span>
                 <div className="d-flex justify-content-start pb-2 border-bottom">
-                  
                     <button onClick={() => handleSelecionarSala('a')} className={getBtnClass('a')}>
                         SALA A
                     </button>
@@ -144,7 +147,6 @@ export default function Home() {
 
             <div className="table-responsive">
                 
-               
                 {!filtroSala && !termoBusca && alunos.length === 0 && !loading && (
                     <div className="text-center py-5 bg-light border border-dashed text-secondary">
                         <h4>👋 Bem-vindo!</h4>
@@ -152,8 +154,8 @@ export default function Home() {
                     </div>
                 )}
 
-               
-                {alunos.length > 0 && (
+                {/* AQUI USAMOS alunosOrdenados NO LUGAR DE alunos */}
+                {alunosOrdenados.length > 0 && (
                     <table className="table table-bordered align-middle table-hover">
                         <thead>
                             <tr>
@@ -165,7 +167,7 @@ export default function Home() {
                             </tr>
                         </thead>
                         <tbody>
-                            {alunos.map((aluno) => (
+                            {alunosOrdenados.map((aluno) => (
                                 <tr key={`${aluno.id}-${aluno.origem}`}>
                                     <td className="text-center">
                                         <button 
